@@ -1,0 +1,50 @@
+create table employee
+	(emp_no char(10), 
+	 emp_name char(10), 
+	 room_no char(10),
+	 primary key (emp_no),
+	 foreign key (manages_id) references employee 
+		on delete set default on update cascade,
+	 foreign key (Dept_no) references department
+		on delete set null on update cascade
+	 foreign key (proj_code) references project
+		on delete set default on update cascade);
+
+create table salary
+	(salary_level char(10),
+	mon_salary char(10),
+	primary key (salary_level));
+	
+create table job
+	(job_code char(10),
+	job_title char(10),
+	primary key (job_code));
+	
+create table salary-hist
+	(emp_no char(10),
+	salary_level char(10),
+	job_code char(10),
+	primary key (emp_no, salary_level),
+	foreign key (emp_no) references employee
+		on delete cascade on update cascade
+	foreign key (salary_level) references salary
+		on delete cascade on update cascade
+	foreign key (job_code) references job
+		on delete cascade on update cascade);
+		
+create table project
+	(proj_code char(10),
+	proj_name char(10),
+	start_date char(10),
+	end_data char(10),
+	primary key (proj_code),
+	foreign key (emp_no) references employee
+		on delete set default on update cascade);
+	
+create table department
+	(Dept_no char(10), 
+	Dept_name char(10), 
+	Dept_head char(10),
+	primary key (Dept_no),
+	foreign key (emp_no) references employee
+		on delete set null on update cascade);
